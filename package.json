@@ -4,6 +4,7 @@
     "start": "electron ."
   },
   "dependencies": {
+    "cheerio-httpcli": "^0.6.9",
     "electron": "^1.4.13",
     "menubar": "^5.2.0"
   }
