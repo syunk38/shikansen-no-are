@@ -1,0 +1,10 @@
+{
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^1.4.13",
+    "menubar": "^5.2.0"
+  }
+}
