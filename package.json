@@ -1,11 +1,19 @@
 {
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "debug": "electron --debug=5858 ./; electron-inspector"
   },
   "dependencies": {
     "cheerio-httpcli": "^0.6.9",
     "electron": "^1.4.13",
-    "menubar": "^5.2.0"
+    "lodash": "^4.17.3",
+    "menubar": "^5.2.0",
+    "rx-node": "^1.0.2"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron-inspector": "^0.1.4",
+    "electron-rebuild": "^1.4.0"
   }
 }

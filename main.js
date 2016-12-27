@@ -1,9 +1,9 @@
-const { getNews } = require('./yahoo-news-scraper')
-const { app, Tray, Menu, shell, BrowserWindow } = require('electron')
-// const BrowserWindow = require('browser-window')
+const { app, Tray, Menu, shell } = require('electron')
+const fs = require('fs')
 const path = require('path')
+const _  = require('lodash')
 
-const news = getNews()
+let news = JSON.parse(fs.readFileSync('./news.json', {encoding: 'utf-8'}));
 
 const contextMenu = Menu.buildFromTemplate(
                       news.reduce((arr, n) => {
@@ -16,10 +16,22 @@ const contextMenu = Menu.buildFromTemplate(
 
 app.on('ready', function() {
   const tray = new Tray(path.join(__dirname,'icon.png'))
-  tray.setTitle('紅白でSMAP色排除 NHK明言')
-  tray.window = new BrowserWindow({width:500, height: 500, show: false})
-  setTimeout(() => {
-    // tray.setTitle('しばらくおまちください')
-  }, 1000)
+  let letterCount = 0
+  let newsCount = 0
+  const displayLimit = 15
+  setInterval(() => {
+    const title = news[newsCount].title
+    const limit = title.length + displayLimit
+    const displayTitle = _.pad(title, title.length + displayLimit * 2, "　")
+    tray.setTitle(displayTitle.slice(letterCount, displayLimit + letterCount))
+    letterCount++
+    if(letterCount === title.length + displayLimit){
+      letterCount = 0
+      newsCount++
+    }
+    if(newsCount === news.length) {
+      newsCount = 0
+    }
+  }, 300)
   tray.setContextMenu(contextMenu)
 });

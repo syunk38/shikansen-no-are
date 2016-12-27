@@ -1,13 +1,15 @@
-var client = require('cheerio-httpcli');
+const client = require('cheerio-httpcli');
+const fs = require('fs')
 
 const fetchNews = () => {
   const promise = client.fetch('http://yahoo.co.jp')
   const ret = promise.then((result) => {
-    const news = result.$('.topicsindex .emphasis a').map((k, v) => {
-      return {
-        title: result.$(v).text(),
-        url: result.$(v).attr('href')
-      }
+    result.$('.topicsindex .emphasis a').each((idx) => {
+      console.log(this)
+      news.push({
+        title: result.$(this).text(),
+        url: result.$(this).attr('href')
+      })
     })
     console.log(news)
   })
