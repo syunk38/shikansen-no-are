@@ -2,6 +2,10 @@ const { app, Tray, Menu, shell } = require('electron')
 const fs = require('fs')
 const path = require('path')
 const _  = require('lodash')
+const { fetchNews } = require('./yahoo-news-scraper')
+
+fetchNews()
+setInterval(fetchNews, 1000 * 60 * 5)
 
 let news = JSON.parse(fs.readFileSync('./news.json', {encoding: 'utf-8'}));
 
